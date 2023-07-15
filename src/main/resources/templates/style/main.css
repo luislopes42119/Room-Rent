@@ -42,11 +42,11 @@ footer p {
     margin-bottom: 0;
 }
 
-#container {
+#destaques-container {
     text-align: center;
 }
 
-#container h3 {
+#destaques-container h3 {
     color: #F2A340;
     margin-bottom: 3px;
     font-weight: 900;
