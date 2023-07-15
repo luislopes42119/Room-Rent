@@ -1,9 +1,6 @@
 package com.example.roomrent.domain.anuncio;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -14,6 +11,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Anuncio {
     private Long id;
 
@@ -26,6 +24,7 @@ public class Anuncio {
     private char tipo;
     private Date data;
     private char estado;
+
 
     public static class AnuncioRowMapper implements RowMapper<Anuncio>{
         @Override
