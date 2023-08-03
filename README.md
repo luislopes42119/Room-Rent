@@ -30,6 +30,6 @@ CREATE TABLE anuncio (
     data timestamp(0) without time zone NOT NULL,
     tipo CHAR(1) CHECK (tipo IN ('O', 'P')) NOT NULL,
     estado CHAR(1) CHECK (tipo IN ('I', 'A')) NOT NULL,
-    PRIMARY KEY (aid)
+    PRIMARY KEY (id)
 );
 ```
