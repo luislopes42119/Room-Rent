@@ -27,8 +27,14 @@ public class RoomRentController {
             anunciosProcura = anunciosProcura.subList(anunciosProcura.size()-3, anunciosProcura.size());
         }
 
-        System.out.println(anunciosOferta.toString());
+        model.addAttribute("anunciosOferta", anunciosOferta);
+        model.addAttribute("anunciosProcura", anunciosProcura);
 
         return "index";
+    }
+
+    @GetMapping("/anuncio/search")
+    public String pageSearch(){
+        return "search";
     }
 }
