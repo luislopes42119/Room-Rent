@@ -6,7 +6,7 @@
         <title>Room Rent</title>
         <link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <link rel="stylesheet" href="/style/main456.css">
+        <link rel="stylesheet" href="/style/main.css">
     </head>
     <body>
         <header>
@@ -36,25 +36,46 @@
         <div id="destaques-container">
             <div id="destaques-container-ofreta">
                 <h2>Ofertas</h2>
-                <c:forEach items="${anunciosOferta}" var="anuncio">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>${anuncio.titulo}</h3>
-                        </div>
-                        <div class="card-body">
-                            <p>${anuncio.local}</p>
-                            <p>${anuncio.preco}€</p>
-                            <a href="/anuncio/${anuncio.id}" class="btn btn-primary">Ver mais</a>
+                <div th:if="${anunciosOferta.isEmpty()}">
+                    <p>Nenhum destaque encontrado.</p>
+                </div>
+                <div th:else>
+                    <div class="row">
+                        <div th:each="anuncio :  ${anunciosOferta}" class="card col-md-4">
+                            <div class="card-header">
+                                <h3 th:text="${anuncio.titulo}"></h3>
+                            </div>
+                            <div class="card-body">
+                                <p th:text="${anuncio.local}"></p>
+                                <p th:text="${anuncio.preco + '€'}"></p>
+                                <a th:href="@{/anuncio/{id}(id=${anuncio.id})}" class="btn btn-primary">Ver mais</a>
+                            </div>
                         </div>
                     </div>
-                </c:forEach>
+                </div>
             </div>
+
             <div id="destaques-container-procura">
                 <h2>Procura</h2>
-                <div id="cards-procura">
-
+                <div th:if="${anunciosProcura.isEmpty()}">
+                    <p>Nenhum destaque encontrado.</p>
                 </div>
-            </div>            
+                <div th:else>
+                    <div class="row">
+                        <div th:each="anuncio :  ${anunciosProcura}" class="card col-md-4">
+                            <div class="card-header">
+                                <h3 th:text="${anuncio.titulo}"></h3>
+                            </div>
+                            <div class="card-body">
+                                <p th:text="${anuncio.local}"></p>
+                                <p th:text="${anuncio.preco + '€'}"></p>
+                                <a th:href="@{/anuncio/{id}(id=${anuncio.id})}" class="btn btn-primary">Ver mais</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+                      
         </div>
 
         <footer>

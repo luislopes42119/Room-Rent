@@ -15,8 +15,10 @@ import java.util.Date;
 public class Anuncio {
     private Long id;
 
+    private String titulo;
     private String local;
     private int preco;
+    private String descricao;
     private char genero;
     private String anunciante;
     private int contacto;
@@ -31,8 +33,10 @@ public class Anuncio {
         public Anuncio mapRow(ResultSet rs, int rowNum) throws SQLException{
             Anuncio anuncio = new Anuncio();
             anuncio.setId(rs.getLong("id"));
-            anuncio.setLocal(rs.getString("local"));
+            anuncio.setTitulo(rs.getString("titulo"));
+            anuncio.setLocal(rs.getString("cidade"));
             anuncio.setPreco(rs.getInt("preco"));
+            anuncio.setDescricao(rs.getString("descricao"));
             anuncio.setGenero(rs.getString("genero").charAt(0));
             anuncio.setAnunciante(rs.getString("anunciante"));
             anuncio.setContacto(rs.getInt("contacto"));
