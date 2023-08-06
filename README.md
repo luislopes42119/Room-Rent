@@ -20,7 +20,7 @@ Rune the following code to create the tables:
 CREATE TABLE anuncio (
     id SERIAL,
     titulo VARCHAR(50) NOT NULL,
-    cidade VARCHAR(50) NOT NULL,
+    local VARCHAR(50) NOT NULL,
     preco INT NOT NULL,
     descricao TEXT NOT NULL,
     genero CHAR(1) NOT NULL,

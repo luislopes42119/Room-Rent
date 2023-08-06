@@ -34,7 +34,7 @@ public class Anuncio {
             Anuncio anuncio = new Anuncio();
             anuncio.setId(rs.getLong("id"));
             anuncio.setTitulo(rs.getString("titulo"));
-            anuncio.setLocal(rs.getString("cidade"));
+            anuncio.setLocal(rs.getString("local"));
             anuncio.setPreco(rs.getInt("preco"));
             anuncio.setDescricao(rs.getString("descricao"));
             anuncio.setGenero(rs.getString("genero").charAt(0));

@@ -46,6 +46,37 @@
         </form>
     </div>
 
+    <div class="search-result">
+        <div th:if="${anuncios}">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Localização</th>
+                        <th scope="col">Preço</th>
+                        <th scope="col">...</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <div th:if="${anuncios.isEmpty()}">
+                        <tr>
+                            <td colspan="4">Não foram encontrados resultados</td>
+                        </tr>
+                    </div>
+                    <div th:else>
+                        <tr th:each="anuncio : ${anuncios}">
+                            <td th:text="${anuncio.titulo}"></td>
+                            <td th:text="${anuncio.local}"></td>
+                            <td th:text="${anuncio.preco}"></td>
+                            <td><a th:href="@{/anuncio/{id}(id=${anuncio.id})}">Ver</a></td>
+                        </tr>
+                    </div>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
     <footer>
         <p>Room Rent &copy; 2023 | Luis Miguel Lopes | l42119@alunos.uevora.pt</p>
     </footer>
