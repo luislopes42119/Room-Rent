@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -60,5 +61,15 @@ public class RoomRentController {
         }
 
         return "search";
+    }
+
+    // Anuncio
+    @GetMapping("/anuncio/{id}")
+    public String pageAnuncio(@PathVariable Long id, Model model){
+        String query = "SELECT * FROM anuncio WHERE id = "+ id;
+        Anuncio anuncio = jdbcTemplate.queryForObject(query, new AnuncioRowMapper());
+        model.addAttribute("anuncio", anuncio);
+
+        return "anuncio";
     }
 }
