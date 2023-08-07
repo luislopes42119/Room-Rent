@@ -2,6 +2,9 @@ package com.example.roomrent.controller;
 
 import com.example.roomrent.domain.anuncio.Anuncio;
 import com.example.roomrent.domain.anuncio.Anuncio.AnuncioRowMapper;
+import com.example.roomrent.domain.mensagem.Mensagem;
+import com.example.roomrent.domain.mensagem.Mensagem.MensagemRowMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -100,13 +103,44 @@ public class RoomRentController {
                                 @RequestParam(name = "descricao", required = true) String descricao,
                                 Model model) throws Exception{
         Date data = new Date();
-        // convert the data to sql date
         java.sql.Date sqlDate = new java.sql.Date(data.getTime());
-        System.out.println(sqlDate);
 
-        String query = "INSERT INTO anuncio(titulo, local, preco, descricao, genero, anunciante, contacto, tipologia, data, tipo, estado) VALUES('"+ titulo +"', '"+ local +"', "+ preco +", '"+ descricao +"', '"+ genero +"', '"+ anunciante +"', "+ preco +", '"+ tipologia +"', '"+ sqlDate +"', '"+ tipo +"', 'A');";
+        String query = "INSERT INTO anuncio(titulo, local, preco, descricao, genero, anunciante, contacto, tipologia, data, tipo, estado) VALUES('"+ titulo +"', '"+ local +"', "+ preco +", '"+ descricao +"', '"+ genero +"', '"+ anunciante +"', "+ preco +", '"+ tipologia +"', '"+ sqlDate +"', '"+ tipo +"', 'I');";
         jdbcTemplate.update(query);
 
         return "redirect:/";
+    }
+
+    // Mensagem
+    // send message
+    @PostMapping("/message/send")
+    public String sendMessage(@RequestParam(name = "idAnuncio", required = true) Long idAnuncio,
+                              @RequestParam(name = "remetente", required = true) String remetente,
+                              @RequestParam(name = "mensagem", required = true) String mensagem,
+                              Model model) throws Exception{
+        Date data = new Date();
+        java.sql.Date sqlDate = new java.sql.Date(data.getTime());
+
+        String query = "INSERT INTO mensagem(remetente, mensagem, anuncio_id, data) VALUES('"+ remetente +"', '"+ mensagem +"', '"+ idAnuncio +"', '"+ sqlDate +"');";
+        jdbcTemplate.update(query);
+
+        return "redirect:/anuncio/"+ idAnuncio;
+    }
+
+    // show message
+    @GetMapping("/message")
+    public String pageMessage(){
+        return "message";
+    }
+
+    // Read message
+    @GetMapping("/message/search")
+    public String messageSearch(@RequestParam(name = "idAnuncio", required = true) String idAnuncio,
+                                Model model){
+        String query = "SELECT * FROM mensagem WHERE anuncio_id = '"+ idAnuncio +"' order by data DESC";
+        List<Mensagem> mensagens = jdbcTemplate.query(query, new MensagemRowMapper());
+        model.addAttribute("mensagens", mensagens);
+
+        return "message";
     }
 }

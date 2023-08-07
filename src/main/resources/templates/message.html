@@ -32,43 +32,43 @@
                 </div>
             </nav>
         </header>
-
-        <div class="show-anuncio">
-            <h2 th:text="${anuncio.titulo}"></h2>
-            <p th:text="${'Local: ' + anuncio.local}"></p>
-            <p th:text="${'Preço: ' + anuncio.preco + '€'}"></p>
-            <div th:switch="${anuncio.tipo}">
-                <p th:case="'O'">Tipo: Oferta</p>
-                <p th:case="'P'">Tipo: Procura</p>
-            </div>
-            <p th:text="${'Tipologia: ' + anuncio.tipologia}"></p>
-            <div th:switch="${anuncio.genero}">
-                <p th:case="'M'">Genero: Masculino</p>
-                <p th:case="'F'">Genero: Feminino</p>
-                <p th:case="'I'">Genero: Indiferente</p>
-            </div>
-            <p th:text="${'Anunciante: ' + anuncio.anunciante}"></p>
-            <p th:text="${'Contacto: ' + anuncio.contacto}"></p>
-            <p th:text="${'Data de publicação: ' + anuncio.data}"></p>
-            <p th:text="${'Descrição: ' + anuncio.descricao}"></p>
+        
+        <div class="search">
+            <form action="/message/search" method="get">
+                <label for="idAnuncio">Id do anuncio: </label>
+                <input type="text" id="idAnuncio" name="idAnuncio" placeholder="Id do anuncio" required>
+                <input type="submit" value="Procurar">
+            </form>
         </div>
 
-        <!-- div send messagem -->
-        <div id="send-mensagem" class="col-md-6">
-            <form action="/message/send" method="post">
-                <div class="form-group">
-                    <input type="hidden" name="idAnuncio" th:value="${anuncio.id}">
-                </div>
-                <div class="form-group">
-                    <label for="remetente">Remetente:</label>
-                    <input type="text" name="remetente" id="remetente" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="mensagem">Mensagem:</label>
-                    <textarea name="mensagem" id="mensagem" class="form-control" required></textarea>
-                </div>
-                <input type="submit" class="btn btn-primary" value="Enviar Mensagem">
-            </form>
+        <div class="search-result">
+            <div th:if="${mensagens}">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Remetente</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Mensagem</th>
+                            <th scope="col">...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <div th:if="${mensagens.isEmpty()}">
+                            <tr>
+                                <td colspan="3">Não existem mensagens para este anuncio</td>
+                            </tr>
+                        </div>
+                        <div th:else>
+                            <tr th:each="mensagem : ${mensagens}">
+                                <td th:text="${mensagem.remetente}"></td>
+                                <td th:text="${mensagem.data}"></td>
+                                <td th:text="${mensagem.mensagem}"></td>
+                                <td>soon</td>
+                            </tr>
+                        </div>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <footer>

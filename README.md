@@ -32,4 +32,14 @@ CREATE TABLE anuncio (
     estado CHAR(1) NOT NULL,
     PRIMARY KEY (id)
 );
+
+CREATE TABLE mensagem (
+    id SERIAL,
+    remetente VARCHAR(20) NOT NULL,
+    mensagem TEXT NOT NULL,
+    data timestamp(0) without time zone NOT NULL,
+    anuncio_id INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (anuncio_id) REFERENCES anuncio (id)
+);
 ```
