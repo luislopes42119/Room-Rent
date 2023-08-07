@@ -8,8 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -39,13 +41,20 @@ public class RoomRentController {
         return "index";
     }
 
-    // Search
+    // Error
+    @GetMapping("/error")
+    public String pageError(){
+        return "error";
+    }
+
+    /* Anunicos */ 
+    // Search Anuncio
     @GetMapping("/anuncio/search")
     public String pageSearch(){
         return "search";
     }
 
-    @GetMapping("/roomsearch")
+    @GetMapping("/anuncio/roomsearch")
     public String roomSearch(@RequestParam(name = "tipo", required = true) char tipo,
                              @RequestParam(name = "local", required = false) String local,
                              Model model){
@@ -63,7 +72,7 @@ public class RoomRentController {
         return "search";
     }
 
-    // Anuncio
+    // Show Anuncio
     @GetMapping("/anuncio/{id}")
     public String pageAnuncio(@PathVariable Long id, Model model){
         String query = "SELECT * FROM anuncio WHERE id = "+ id;
@@ -71,5 +80,33 @@ public class RoomRentController {
         model.addAttribute("anuncio", anuncio);
 
         return "anuncio";
+    }
+
+    // Publish Anuncio
+    @GetMapping("/anuncio/publish")
+    public String pagePublish(){
+        return "publish";
+    }
+
+    @PostMapping("/anuncio/create")
+    public String createAnuncio(@RequestParam(name = "titulo", required = true) String titulo,
+                                @RequestParam(name = "local", required = true) String local,
+                                @RequestParam(name = "preco", required = true) int preco,
+                                @RequestParam(name = "genero", required = true) char genero,
+                                @RequestParam(name = "anunciante", required = true) String anunciante,
+                                @RequestParam(name = "contacto", required = true) int contacto,
+                                @RequestParam(name = "tipologia", required = true) String tipologia,
+                                @RequestParam(name = "tipo", required = true) char tipo,
+                                @RequestParam(name = "descricao", required = true) String descricao,
+                                Model model) throws Exception{
+        Date data = new Date();
+        // convert the data to sql date
+        java.sql.Date sqlDate = new java.sql.Date(data.getTime());
+        System.out.println(sqlDate);
+
+        String query = "INSERT INTO anuncio(titulo, local, preco, descricao, genero, anunciante, contacto, tipologia, data, tipo, estado) VALUES('"+ titulo +"', '"+ local +"', "+ preco +", '"+ descricao +"', '"+ genero +"', '"+ anunciante +"', "+ preco +", '"+ tipologia +"', '"+ sqlDate +"', '"+ tipo +"', 'A');";
+        jdbcTemplate.update(query);
+
+        return "redirect:/";
     }
 }

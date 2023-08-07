@@ -33,26 +33,13 @@
             </nav>
         </header>
 
-        <div class="show-anuncio">
-            <h2 th:text="${anuncio.titulo}"></h2>
-            <p th:text="${'Local: ' + anuncio.local}"></p>
-            <p th:text="${'Preço: ' + anuncio.preco + '€'}"></p>
-            <div th:switch="${anuncio.tipo}">
-                <p th:case="'O'">Tipo: Oferta</p>
-                <p th:case="'P'">Tipo: Procura</p>
-            </div>
-            <p th:text="${'Tipologia: ' + anuncio.tipologia}"></p>
-            <div th:switch="${anuncio.genero}">
-                <p th:case="'M'">Genero: Masculino</p>
-                <p th:case="'F'">Genero: Feminino</p>
-                <p th:case="'I'">Genero: Indiferente</p>
-            </div>
-            <p th:text="${'Anunciante: ' + anuncio.anunciante}"></p>
-            <p th:text="${'Contacto: ' + anuncio.contacto}"></p>
-            <p th:text="${'Data de publicação: ' + anuncio.data}"></p>
-            <p th:text="${'Descrição: ' + anuncio.descricao}"></p>
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Erro!</h4>
+            <p>Desculpe, ocorreu um erro inesperado. Por favor, tente novamente mais tarde.</p>
+            <hr>
+            <p class="mb-0">Se o problema persistir, entre em contacto connosco.</p>
         </div>
-
+    
         <footer>
             <p>Room Rent &copy; 2023 | Luis Miguel Lopes | luis.melo.lopes@gmail.com</p>
         </footer>
