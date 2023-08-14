@@ -42,4 +42,12 @@ CREATE TABLE mensagem (
     PRIMARY KEY (id),
     FOREIGN KEY (anuncio_id) REFERENCES anuncio (id)
 );
+
+CREATE TABLE users (
+    id SERIAL,
+    name VARCHAR(20) NOT NULL,
+    username VARCHAR(20) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
 ```
