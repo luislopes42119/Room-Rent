@@ -21,8 +21,8 @@ public class Users {
         public Users mapRow(ResultSet rs, int rowNum) throws SQLException{
             Users users = new Users();
             users.setId(rs.getLong("id"));
-            users.setNome(rs.getString("nome"));
-            users.setUser_name(rs.getString("user_name"));
+            users.setNome(rs.getString("name"));
+            users.setUser_name(rs.getString("username"));
             users.setPassword(rs.getString("password"));
             return users;
         }
